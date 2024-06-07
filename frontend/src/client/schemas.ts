@@ -40,18 +40,7 @@ export const $Body_login_login_access_token = {
 	},
 } as const;
 
-export const $HTTPValidationError = {
-	properties: {
-		detail: {
-	type: 'array',
-	contains: {
-		type: 'ValidationError',
-	},
-},
-	},
-} as const;
-
-export const $ItemCreate = {
+export const $DatasetCreate = {
 	properties: {
 		title: {
 	type: 'string',
@@ -68,7 +57,7 @@ export const $ItemCreate = {
 	},
 } as const;
 
-export const $ItemPublic = {
+export const $DatasetPublic = {
 	properties: {
 		title: {
 	type: 'string',
@@ -86,14 +75,15 @@ export const $ItemPublic = {
 	type: 'number',
 	isRequired: true,
 },
-		owner_id: {
-	type: 'number',
+		created_at: {
+	type: 'string',
 	isRequired: true,
+	format: 'date-time',
 },
 	},
 } as const;
 
-export const $ItemUpdate = {
+export const $DatasetUpdate = {
 	properties: {
 		title: {
 	type: 'any-of',
@@ -114,18 +104,29 @@ export const $ItemUpdate = {
 	},
 } as const;
 
-export const $ItemsPublic = {
+export const $DatasetsPublic = {
 	properties: {
 		data: {
 	type: 'array',
 	contains: {
-		type: 'ItemPublic',
+		type: 'DatasetPublic',
 	},
 	isRequired: true,
 },
 		count: {
 	type: 'number',
 	isRequired: true,
+},
+	},
+} as const;
+
+export const $HTTPValidationError = {
+	properties: {
+		detail: {
+	type: 'array',
+	contains: {
+		type: 'ValidationError',
+	},
 },
 	},
 } as const;

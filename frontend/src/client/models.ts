@@ -9,38 +9,38 @@ export type Body_login_login_access_token = {
 
 
 
-export type HTTPValidationError = {
-	detail?: Array<ValidationError>;
-};
-
-
-
-export type ItemCreate = {
+export type DatasetCreate = {
 	title: string;
 	description?: string | null;
 };
 
 
 
-export type ItemPublic = {
+export type DatasetPublic = {
 	title: string;
 	description?: string | null;
 	id: number;
-	owner_id: number;
+	created_at: string;
 };
 
 
 
-export type ItemUpdate = {
+export type DatasetUpdate = {
 	title?: string | null;
 	description?: string | null;
 };
 
 
 
-export type ItemsPublic = {
-	data: Array<ItemPublic>;
+export type DatasetsPublic = {
+	data: Array<DatasetPublic>;
 	count: number;
+};
+
+
+
+export type HTTPValidationError = {
+	detail?: Array<ValidationError>;
 };
 
 

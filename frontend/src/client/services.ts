@@ -2,7 +2,7 @@ import type { CancelablePromise } from './core/CancelablePromise';
 import { OpenAPI } from './core/OpenAPI';
 import { request as __request } from './core/request';
 
-import type { Body_login_login_access_token,Message,NewPassword,Token,UserPublic,UpdatePassword,UserCreate,UserRegister,UsersPublic,UserUpdate,UserUpdateMe,ItemCreate,ItemPublic,ItemsPublic,ItemUpdate } from './models';
+import type { Body_login_login_access_token,Message,NewPassword,Token,UserPublic,UpdatePassword,UserCreate,UserRegister,UsersPublic,UserUpdate,UserUpdateMe,DatasetCreate,DatasetPublic,DatasetsPublic,DatasetUpdate } from './models';
 
 export type TDataLoginAccessToken = {
                 formData: Body_login_login_access_token
@@ -174,7 +174,7 @@ skip = 0,
 } = data;
 		return __request(OpenAPI, {
 			method: 'GET',
-			url: '/api/v1/users/',
+			url: '/api/v1/platform/users/',
 			query: {
 				skip, limit
 			},
@@ -196,7 +196,7 @@ requestBody,
 } = data;
 		return __request(OpenAPI, {
 			method: 'POST',
-			url: '/api/v1/users/',
+			url: '/api/v1/platform/users/',
 			body: requestBody,
 			mediaType: 'application/json',
 			errors: {
@@ -214,7 +214,7 @@ requestBody,
 	public static readUserMe(): CancelablePromise<UserPublic> {
 				return __request(OpenAPI, {
 			method: 'GET',
-			url: '/api/v1/users/me',
+			url: '/api/v1/platform/users/me',
 		});
 	}
 
@@ -227,7 +227,7 @@ requestBody,
 	public static deleteUserMe(): CancelablePromise<Message> {
 				return __request(OpenAPI, {
 			method: 'DELETE',
-			url: '/api/v1/users/me',
+			url: '/api/v1/platform/users/me',
 		});
 	}
 
@@ -243,7 +243,7 @@ requestBody,
 } = data;
 		return __request(OpenAPI, {
 			method: 'PATCH',
-			url: '/api/v1/users/me',
+			url: '/api/v1/platform/users/me',
 			body: requestBody,
 			mediaType: 'application/json',
 			errors: {
@@ -264,7 +264,7 @@ requestBody,
 } = data;
 		return __request(OpenAPI, {
 			method: 'PATCH',
-			url: '/api/v1/users/me/password',
+			url: '/api/v1/platform/users/me/password',
 			body: requestBody,
 			mediaType: 'application/json',
 			errors: {
@@ -285,7 +285,7 @@ requestBody,
 } = data;
 		return __request(OpenAPI, {
 			method: 'POST',
-			url: '/api/v1/users/signup',
+			url: '/api/v1/platform/users/signup',
 			body: requestBody,
 			mediaType: 'application/json',
 			errors: {
@@ -306,7 +306,7 @@ userId,
 } = data;
 		return __request(OpenAPI, {
 			method: 'GET',
-			url: '/api/v1/users/{user_id}',
+			url: '/api/v1/platform/users/{user_id}',
 			path: {
 				user_id: userId
 			},
@@ -329,7 +329,7 @@ userId,
 } = data;
 		return __request(OpenAPI, {
 			method: 'PATCH',
-			url: '/api/v1/users/{user_id}',
+			url: '/api/v1/platform/users/{user_id}',
 			path: {
 				user_id: userId
 			},
@@ -353,7 +353,7 @@ userId,
 } = data;
 		return __request(OpenAPI, {
 			method: 'DELETE',
-			url: '/api/v1/users/{user_id}',
+			url: '/api/v1/platform/users/{user_id}',
 			path: {
 				user_id: userId
 			},
@@ -384,7 +384,7 @@ emailTo,
 } = data;
 		return __request(OpenAPI, {
 			method: 'POST',
-			url: '/api/v1/utils/test-email/',
+			url: '/api/v1/platform/utils/test-email/',
 			query: {
 				email_to: emailTo
 			},
@@ -396,13 +396,18 @@ emailTo,
 
 }
 
+export type TDataReadRecentDatasets = {
+                limit?: number
+skip?: number
+                
+            }
 export type TDataReadItems = {
                 limit?: number
 skip?: number
                 
             }
 export type TDataCreateItem = {
-                requestBody: ItemCreate
+                requestBody: DatasetCreate
                 
             }
 export type TDataReadItem = {
@@ -411,7 +416,7 @@ export type TDataReadItem = {
             }
 export type TDataUpdateItem = {
                 id: number
-requestBody: ItemUpdate
+requestBody: DatasetUpdate
                 
             }
 export type TDataDeleteItem = {
@@ -422,19 +427,42 @@ export type TDataDeleteItem = {
 export class ItemsService {
 
 	/**
-	 * Read Items
-	 * Retrieve items.
-	 * @returns ItemsPublic Successful Response
+	 * Read Recent Datasets
+	 * Retrieve recently uploaded datasets.
+	 * @returns DatasetsPublic Successful Response
 	 * @throws ApiError
 	 */
-	public static readItems(data: TDataReadItems = {}): CancelablePromise<ItemsPublic> {
+	public static readRecentDatasets(data: TDataReadRecentDatasets = {}): CancelablePromise<DatasetsPublic> {
+		const {
+limit = 10,
+skip = 0,
+} = data;
+		return __request(OpenAPI, {
+			method: 'GET',
+			url: '/api/v1/platform/items/datasets/',
+			query: {
+				skip, limit
+			},
+			errors: {
+				422: `Validation Error`,
+			},
+		});
+	}
+
+	/**
+	 * Read Items
+	 * Retrieve items.
+	 * @returns DatasetsPublic Successful Response
+	 * @throws ApiError
+	 */
+	public static readItems(data: TDataReadItems = {}): CancelablePromise<DatasetsPublic> {
 		const {
 limit = 100,
 skip = 0,
 } = data;
 		return __request(OpenAPI, {
 			method: 'GET',
-			url: '/api/v1/items/',
+			url: '/api/v1/platform/items/',
 			query: {
 				skip, limit
 			},
@@ -447,16 +475,16 @@ skip = 0,
 	/**
 	 * Create Item
 	 * Create new item.
-	 * @returns ItemPublic Successful Response
+	 * @returns DatasetPublic Successful Response
 	 * @throws ApiError
 	 */
-	public static createItem(data: TDataCreateItem): CancelablePromise<ItemPublic> {
+	public static createItem(data: TDataCreateItem): CancelablePromise<DatasetPublic> {
 		const {
 requestBody,
 } = data;
 		return __request(OpenAPI, {
 			method: 'POST',
-			url: '/api/v1/items/',
+			url: '/api/v1/platform/items/',
 			body: requestBody,
 			mediaType: 'application/json',
 			errors: {
@@ -468,16 +496,16 @@ requestBody,
 	/**
 	 * Read Item
 	 * Get item by ID.
-	 * @returns ItemPublic Successful Response
+	 * @returns DatasetPublic Successful Response
 	 * @throws ApiError
 	 */
-	public static readItem(data: TDataReadItem): CancelablePromise<ItemPublic> {
+	public static readItem(data: TDataReadItem): CancelablePromise<DatasetPublic> {
 		const {
 id,
 } = data;
 		return __request(OpenAPI, {
 			method: 'GET',
-			url: '/api/v1/items/{id}',
+			url: '/api/v1/platform/items/{id}',
 			path: {
 				id
 			},
@@ -490,17 +518,17 @@ id,
 	/**
 	 * Update Item
 	 * Update an item.
-	 * @returns ItemPublic Successful Response
+	 * @returns DatasetPublic Successful Response
 	 * @throws ApiError
 	 */
-	public static updateItem(data: TDataUpdateItem): CancelablePromise<ItemPublic> {
+	public static updateItem(data: TDataUpdateItem): CancelablePromise<DatasetPublic> {
 		const {
 id,
 requestBody,
 } = data;
 		return __request(OpenAPI, {
 			method: 'PUT',
-			url: '/api/v1/items/{id}',
+			url: '/api/v1/platform/items/{id}',
 			path: {
 				id
 			},
@@ -524,7 +552,7 @@ id,
 } = data;
 		return __request(OpenAPI, {
 			method: 'DELETE',
-			url: '/api/v1/items/{id}',
+			url: '/api/v1/platform/items/{id}',
 			path: {
 				id
 			},

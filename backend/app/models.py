@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from sqlmodel import Field, Relationship, SQLModel
 
 
@@ -79,12 +81,13 @@ class Dataset(DatasetBase, table=True):
     title: str
     owner_id: int | None = Field(default=None, foreign_key="user.id", nullable=False)
     owner: User | None = Relationship(back_populates="items")
+    created_at: datetime = Field(default=datetime.utcnow())
 
 
 # Properties to return via API, id is always required
 class DatasetPublic(DatasetBase):
     id: int
-    owner_id: int
+    created_at: datetime
 
 
 class DatasetsPublic(SQLModel):

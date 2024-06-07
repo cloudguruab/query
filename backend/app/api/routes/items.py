@@ -16,6 +16,22 @@ from app.models import (
 router = APIRouter()
 
 
+@router.get("/datasets/", response_model=DatasetsPublic)
+def read_recent_datasets(session: SessionDep, skip: int = 0, limit: int = 10) -> Any:
+    """
+    Retrieve recently uploaded datasets.
+    """
+    count_statement = select(func.count()).select_from(Dataset)
+    count = session.exec(count_statement).one()
+
+    statement = (
+        select(Dataset).order_by(Dataset.created_at.desc()).offset(skip).limit(limit)
+    )
+    items = session.exec(statement).all()
+
+    return DatasetsPublic(data=items, count=count)
+
+
 @router.get("/", response_model=DatasetsPublic)
 def read_items(
     session: SessionDep, current_user: CurrentUser, skip: int = 0, limit: int = 100

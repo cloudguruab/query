@@ -43,22 +43,22 @@ const LayoutRoute = LayoutImport.update({
 } as any)
 
 const LayoutIndexRoute = LayoutIndexImport.update({
-  path: '/',
+  path: '/platform/',
   getParentRoute: () => LayoutRoute,
 } as any)
 
 const LayoutSettingsRoute = LayoutSettingsImport.update({
-  path: '/settings',
+  path: '/platform/settings',
   getParentRoute: () => LayoutRoute,
 } as any)
 
 const LayoutItemsRoute = LayoutItemsImport.update({
-  path: '/items',
+  path: '/platform/items',
   getParentRoute: () => LayoutRoute,
 } as any)
 
 const LayoutAdminRoute = LayoutAdminImport.update({
-  path: '/admin',
+  path: '/platform/admin',
   getParentRoute: () => LayoutRoute,
 } as any)
 
