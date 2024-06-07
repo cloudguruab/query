@@ -12,10 +12,10 @@ import {
 import type { UserPublic } from "../../client";
 
 const items = [
-  { icon: FiHome, title: "Dashboard", path: "/platform/" },
-  { icon: FiBriefcase, title: "Items", path: "/platform/items" },
-  { icon: FiSettings, title: "User Settings", path: "/platform/settings" },
-  { icon: FiAirplay, title: "Public Site", path: "/#" },
+  { icon: FiHome, title: "Dashboard", path: "/" },
+  { icon: FiBriefcase, title: "Items", path: "/items" },
+  { icon: FiSettings, title: "User Settings", path: "/settings" },
+  { icon: FiAirplay, title: "Public Site", path: "/home" },
 ];
 
 interface SidebarItemsProps {
@@ -29,7 +29,7 @@ const SidebarItems = ({ onClose }: SidebarItemsProps) => {
   const currentUser = queryClient.getQueryData<UserPublic>(["currentUser"]);
 
   const finalItems = currentUser?.is_superuser
-    ? [...items, { icon: FiUsers, title: "Admin", path: "/platform/admin" }]
+    ? [...items, { icon: FiUsers, title: "Admin", path: "/admin" }]
     : items;
 
   const listItems = finalItems.map(({ icon, title, path }) => (

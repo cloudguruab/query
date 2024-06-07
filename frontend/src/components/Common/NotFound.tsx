@@ -25,7 +25,7 @@ const NotFound = () => {
         <Text fontSize="md">Page not found.</Text>
         <Button
           as={Link}
-          to="/platform/"
+          to="/"
           color="ui.main"
           borderColor="ui.main"
           variant="outline"

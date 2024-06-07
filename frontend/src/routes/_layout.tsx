@@ -10,7 +10,8 @@ export const Route = createFileRoute("/_layout")({
   beforeLoad: async () => {
     if (!isLoggedIn()) {
       throw redirect({
-        to: "/login",
+        // Redirect to home page if user is not logged in/login manually selected as button
+        to: "/home",
       });
     }
   },
@@ -18,7 +19,6 @@ export const Route = createFileRoute("/_layout")({
 
 function Layout() {
   const { isLoading } = useAuth();
-
   return (
     <Flex maxW="large" h="auto" position="relative">
       <Sidebar />
