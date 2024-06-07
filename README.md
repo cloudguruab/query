@@ -1,7 +1,4 @@
-# Full Stack FastAPI Template
-
-<a href="https://github.com/tiangolo/full-stack-fastapi-template/actions?query=workflow%3ATest" target="_blank"><img src="https://github.com/tiangolo/full-stack-fastapi-template/workflows/Test/badge.svg" alt="Test"></a>
-<a href="https://coverage-badge.samuelcolvin.workers.dev/redirect/tiangolo/full-stack-fastapi-template" target="_blank"><img src="https://coverage-badge.samuelcolvin.workers.dev/tiangolo/full-stack-fastapi-template.svg" alt="Coverage"></a>
+# Query
 
 ## Technology Stack and Features
 
@@ -108,4 +105,4 @@ Check the file [release-notes.md](./release-notes.md).
 
 ## License
 
-This project is sourced using a template which is licensed under the terms of the MIT license.
+This project is sourced using a template which is licensed under the terms of the MIT license. This project was setup using a FastAPI template project made by https://github.com/tiangolo - huge shoutout to what he's working on. Any changes or additional edits made by the Mumbo team are uniquely our own.
