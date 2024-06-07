@@ -44,7 +44,7 @@ class UpdatePassword(SQLModel):
 class User(UserBase, table=True):
     id: int | None = Field(default=None, primary_key=True)
     hashed_password: str
-    items: list["Item"] = Relationship(back_populates="owner")
+    items: list["Dataset"] = Relationship(back_populates="owner")
 
 
 # Properties to return via API, id is always required
@@ -58,23 +58,23 @@ class UsersPublic(SQLModel):
 
 
 # Shared properties
-class ItemBase(SQLModel):
+class DatasetBase(SQLModel):
     title: str
     description: str | None = None
 
 
 # Properties to receive on item creation
-class ItemCreate(ItemBase):
+class DatasetCreate(DatasetBase):
     title: str
 
 
 # Properties to receive on item update
-class ItemUpdate(ItemBase):
+class DatasetUpdate(DatasetBase):
     title: str | None = None  # type: ignore
 
 
 # Database model, database table inferred from class name
-class Item(ItemBase, table=True):
+class Dataset(DatasetBase, table=True):
     id: int | None = Field(default=None, primary_key=True)
     title: str
     owner_id: int | None = Field(default=None, foreign_key="user.id", nullable=False)
@@ -82,13 +82,13 @@ class Item(ItemBase, table=True):
 
 
 # Properties to return via API, id is always required
-class ItemPublic(ItemBase):
+class DatasetPublic(DatasetBase):
     id: int
     owner_id: int
 
 
-class ItemsPublic(SQLModel):
-    data: list[ItemPublic]
+class DatasetsPublic(SQLModel):
+    data: list[DatasetPublic]
     count: int
 
 

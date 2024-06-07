@@ -4,12 +4,19 @@ from fastapi import APIRouter, HTTPException
 from sqlmodel import func, select
 
 from app.api.deps import CurrentUser, SessionDep
-from app.models import Item, ItemCreate, ItemPublic, ItemsPublic, ItemUpdate, Message
+from app.models import (
+    Dataset,
+    DatasetCreate,
+    DatasetPublic,
+    DatasetsPublic,
+    DatasetUpdate,
+    Message,
+)
 
 router = APIRouter()
 
 
-@router.get("/", response_model=ItemsPublic)
+@router.get("/", response_model=DatasetsPublic)
 def read_items(
     session: SessionDep, current_user: CurrentUser, skip: int = 0, limit: int = 100
 ) -> Any:
@@ -18,34 +25,34 @@ def read_items(
     """
 
     if current_user.is_superuser:
-        count_statement = select(func.count()).select_from(Item)
+        count_statement = select(func.count()).select_from(Dataset)
         count = session.exec(count_statement).one()
-        statement = select(Item).offset(skip).limit(limit)
+        statement = select(Dataset).offset(skip).limit(limit)
         items = session.exec(statement).all()
     else:
         count_statement = (
             select(func.count())
-            .select_from(Item)
-            .where(Item.owner_id == current_user.id)
+            .select_from(Dataset)
+            .where(Dataset.owner_id == current_user.id)
         )
         count = session.exec(count_statement).one()
         statement = (
-            select(Item)
-            .where(Item.owner_id == current_user.id)
+            select(Dataset)
+            .where(Dataset.owner_id == current_user.id)
             .offset(skip)
             .limit(limit)
         )
         items = session.exec(statement).all()
 
-    return ItemsPublic(data=items, count=count)
+    return DatasetsPublic(data=items, count=count)
 
 
-@router.get("/{id}", response_model=ItemPublic)
+@router.get("/{id}", response_model=DatasetPublic)
 def read_item(session: SessionDep, current_user: CurrentUser, id: int) -> Any:
     """
     Get item by ID.
     """
-    item = session.get(Item, id)
+    item = session.get(Dataset, id)
     if not item:
         raise HTTPException(status_code=404, detail="Item not found")
     if not current_user.is_superuser and (item.owner_id != current_user.id):
@@ -53,28 +60,28 @@ def read_item(session: SessionDep, current_user: CurrentUser, id: int) -> Any:
     return item
 
 
-@router.post("/", response_model=ItemPublic)
+@router.post("/", response_model=DatasetPublic)
 def create_item(
-    *, session: SessionDep, current_user: CurrentUser, item_in: ItemCreate
+    *, session: SessionDep, current_user: CurrentUser, item_in: DatasetCreate
 ) -> Any:
     """
     Create new item.
     """
-    item = Item.model_validate(item_in, update={"owner_id": current_user.id})
+    item = Dataset.model_validate(item_in, update={"owner_id": current_user.id})
     session.add(item)
     session.commit()
     session.refresh(item)
     return item
 
 
-@router.put("/{id}", response_model=ItemPublic)
+@router.put("/{id}", response_model=DatasetPublic)
 def update_item(
-    *, session: SessionDep, current_user: CurrentUser, id: int, item_in: ItemUpdate
+    *, session: SessionDep, current_user: CurrentUser, id: int, item_in: DatasetUpdate
 ) -> Any:
     """
     Update an item.
     """
-    item = session.get(Item, id)
+    item = session.get(Dataset, id)
     if not item:
         raise HTTPException(status_code=404, detail="Item not found")
     if not current_user.is_superuser and (item.owner_id != current_user.id):
@@ -92,7 +99,7 @@ def delete_item(session: SessionDep, current_user: CurrentUser, id: int) -> Mess
     """
     Delete an item.
     """
-    item = session.get(Item, id)
+    item = session.get(Dataset, id)
     if not item:
         raise HTTPException(status_code=404, detail="Item not found")
     if not current_user.is_superuser and (item.owner_id != current_user.id):
