@@ -1,4 +1,4 @@
-# Query (II Think Tank Passion Project by Adrian Brown)
+# Query (II Think Tank Passion Project)
 
 ## Technology Stack and Features
 
