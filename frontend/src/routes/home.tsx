@@ -1,4 +1,4 @@
-import { Container, Heading, Tooltip, Box } from "@chakra-ui/react";
+import { Container, Heading } from "@chakra-ui/react";
 import { useState } from "react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { createFileRoute } from "@tanstack/react-router";
@@ -98,7 +98,7 @@ function Home() {
               viewBox="0 0 23 23"
               stroke-width="2"
               stroke="currentColor"
-              class="size-6"
+              className="size-6"
               style={{ stroke: "black", marginRight: "0.5rem" }}
             >
               <path

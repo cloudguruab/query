@@ -11,62 +11,62 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
-} from "@chakra-ui/react"
-import { useMutation, useQueryClient } from "@tanstack/react-query"
-import { type SubmitHandler, useForm } from "react-hook-form"
+} from "@chakra-ui/react";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { type SubmitHandler, useForm } from "react-hook-form";
 
 import {
   type ApiError,
-  type ItemPublic,
-  type ItemUpdate,
+  type DatasetPublic,
+  type DatasetUpdate,
   ItemsService,
-} from "../../client"
-import useCustomToast from "../../hooks/useCustomToast"
+} from "../../client";
+import useCustomToast from "../../hooks/useCustomToast";
 
 interface EditItemProps {
-  item: ItemPublic
-  isOpen: boolean
-  onClose: () => void
+  item: DatasetPublic;
+  isOpen: boolean;
+  onClose: () => void;
 }
 
 const EditItem = ({ item, isOpen, onClose }: EditItemProps) => {
-  const queryClient = useQueryClient()
-  const showToast = useCustomToast()
+  const queryClient = useQueryClient();
+  const showToast = useCustomToast();
   const {
     register,
     handleSubmit,
     reset,
     formState: { isSubmitting, errors, isDirty },
-  } = useForm<ItemUpdate>({
+  } = useForm<DatasetUpdate>({
     mode: "onBlur",
     criteriaMode: "all",
     defaultValues: item,
-  })
+  });
 
   const mutation = useMutation({
-    mutationFn: (data: ItemUpdate) =>
+    mutationFn: (data: DatasetUpdate) =>
       ItemsService.updateItem({ id: item.id, requestBody: data }),
     onSuccess: () => {
-      showToast("Success!", "Item updated successfully.", "success")
-      onClose()
+      showToast("Success!", "Item updated successfully.", "success");
+      onClose();
     },
     onError: (err: ApiError) => {
-      const errDetail = (err.body as any)?.detail
-      showToast("Something went wrong.", `${errDetail}`, "error")
+      const errDetail = (err.body as any)?.detail;
+      showToast("Something went wrong.", `${errDetail}`, "error");
     },
     onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ["items"] })
+      queryClient.invalidateQueries({ queryKey: ["items"] });
     },
-  })
+  });
 
-  const onSubmit: SubmitHandler<ItemUpdate> = async (data) => {
-    mutation.mutate(data)
-  }
+  const onSubmit: SubmitHandler<DatasetUpdate> = async (data) => {
+    mutation.mutate(data);
+  };
 
   const onCancel = () => {
-    reset()
-    onClose()
-  }
+    reset();
+    onClose();
+  };
 
   return (
     <>
@@ -118,7 +118,7 @@ const EditItem = ({ item, isOpen, onClose }: EditItemProps) => {
         </ModalContent>
       </Modal>
     </>
-  )
-}
+  );
+};
 
-export default EditItem
+export default EditItem;

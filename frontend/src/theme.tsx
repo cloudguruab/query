@@ -1,7 +1,5 @@
 import { extendTheme } from "@chakra-ui/react";
 
-import resolveConfig from "tailwindcss/resolveConfig";
-
 const disabledStyles = {
   _disabled: {
     backgroundColor: "ui.main",
