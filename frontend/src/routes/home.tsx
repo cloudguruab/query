@@ -15,7 +15,6 @@ export const Route = createFileRoute("/home")({
 // Constants
 const navigationBar = [
   { name: "Home", href: "/home", current: true },
-  { name: "Datasets", href: "/home/#datasets" },
   {
     name: "LinkedIn",
     href: "https://linkedin.com/in/adrbrownx",
@@ -180,6 +179,7 @@ function Home() {
               datasets that exist inside different platforms and what insights
               they can provide. This addresses the challenge of understanding
               what datasets are available and what can be learned from them.
+              Checkout the datasets below!
             </p>
             <div className="mt-10 flex items-center justify-center gap-x-6">
               <a
