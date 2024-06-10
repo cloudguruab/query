@@ -69,7 +69,7 @@ const clients: any = [
     id: 4,
     imageUrl: "https://tailwindui.com/img/logos/48x48/savvycal.svg",
     details: {
-      title: "Pathways to consipiracy",
+      title: "Pathways to conspiracy",
       dateTime: "06-10-2024",
       description:
         "The social and linguistic precursors of involvement in Reddits conspiracy theory forum",
