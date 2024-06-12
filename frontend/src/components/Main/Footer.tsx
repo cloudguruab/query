@@ -3,7 +3,7 @@ import { Container } from "@chakra-ui/react";
 const navigation = {
   main: [
     { name: "About", href: "#" },
-    { name: "Substack", href: "https://thebriefnewsletter.com" },
+    { name: "Substack", href: "https://www.thebriefnewsletter.com" },
     { name: "Press", href: "#" },
     { name: "Accessibility", href: "#" },
     { name: "Partners", href: "#" },
