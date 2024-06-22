@@ -6,3 +6,7 @@ app.egg-info
 htmlcov
 .cache
 .venv
+.vscode
+.env
+pyproject.toml
+poetry.lock
